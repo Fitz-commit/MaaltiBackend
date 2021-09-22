@@ -1,0 +1,8 @@
+GET https://api.instagram.com/oauth/authorize
+  ?client_id=594821241888095
+  &redirect_uri=https://insta-test-maalti.herokuapp.com/auth/
+  &scope=user_profile,user_media
+  &response_type=code
+Accept: application/json
+
+###
