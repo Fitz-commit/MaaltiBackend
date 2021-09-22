@@ -9,9 +9,5 @@ public class Main {
         String url = "https://www.instagram.com/revilodesign_de/channel/?__a=1";
 
 
-
     }
-
-    @GetMapping
-
 }
