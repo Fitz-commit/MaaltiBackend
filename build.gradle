@@ -20,6 +20,7 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
     implementation 'commons-dbcp:commons-dbcp:20030825.184428'
+    implementation 'com.google.apis:google-api-services-youtube:v3-rev20210915-1.32.1'
 
 }
 
