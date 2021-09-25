@@ -1,5 +1,6 @@
 package Testing;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -9,9 +10,6 @@ public class Mapping {
 
     @GetMapping("/getYoutuber")
     public Youtuber getTasks(@RequestParam(value = "YouTuber", defaultValue = "Student") String Youtuber) {
-        String descritption = "Test";
-        String subcount = "444";
-        Youtuber test = new Youtuber(Youtuber,descritption,subcount);
 
     return null;
     }

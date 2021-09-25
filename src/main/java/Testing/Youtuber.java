@@ -1,12 +1,14 @@
 package Testing;
 
+import java.math.BigInteger;
+
 public class Youtuber {
 
     String name;
     String description;
-    String subcount;
+    BigInteger subcount;
 
-    public Youtuber(String name, String description, String subcount) {
+    public Youtuber(String name, String description, BigInteger subcount) {
         this.name = name;
         this.description = description;
         this.subcount = subcount;
@@ -28,11 +30,11 @@ public class Youtuber {
         this.description = description;
     }
 
-    public String getSubcount() {
+    public BigInteger getSubcount() {
         return subcount;
     }
 
-    public void setSubcount(String subcount) {
+    public void setSubcount(BigInteger subcount) {
         this.subcount = subcount;
     }
 }
