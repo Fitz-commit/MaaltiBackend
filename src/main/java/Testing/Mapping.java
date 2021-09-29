@@ -11,6 +11,10 @@ import java.security.GeneralSecurityException;
 @RequestMapping("/api/v1.0")
 public class Mapping {
 
+    //TODO
+    //Abklären was wir von der API brauchen.
+    //Theoretisch alles möglich mit API KEY?
+
     @GetMapping("/getYoutuber")
     public Youtuber getYoutuber() throws GeneralSecurityException, IOException {
     return ApiExample.doThing();

@@ -29,8 +29,6 @@ public class ApiExample {
                 .build();
     }
 
-
-
     public static Youtuber doThing() throws GeneralSecurityException, IOException {
         YouTube youtubeService = ApiExample.getService();
         YouTube.Channels.List request = youtubeService.channels()
@@ -42,6 +40,8 @@ public class ApiExample {
 
         ChannelSnippet snippet = response.getItems().get(0).getSnippet();
         ChannelStatistics statistics = response.getItems().get(0).getStatistics();
+
+        //UCYJ61XIK64sp6ZFFS8sctxw
 
         Youtuber abc = new Youtuber(snippet.getTitle(), snippet.getDescription(),statistics.getSubscriberCount());
         return abc;
