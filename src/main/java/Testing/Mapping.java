@@ -17,7 +17,7 @@ public class Mapping {
 
     @GetMapping("/getYoutuber")
     public Youtuber getYoutuber() throws GeneralSecurityException, IOException {
-    return ApiExample.doThing();
+    return null;
     }
 
 
