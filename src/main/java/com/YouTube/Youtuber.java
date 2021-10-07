@@ -20,7 +20,7 @@ public class Youtuber {
     private List<String> topics;
 
 
-    public Youtuber(String name, String description, String country, String profilbild, int creationdate, String creatorid, String customURL, BigInteger viewcount, BigInteger videocount, BigInteger subcount, boolean madeforkids, List topics) {
+    public Youtuber(String name, String description, String country, String profilbild, int creationdate, String creatorid, String customURL, BigInteger viewcount, BigInteger videocount, BigInteger subcount, boolean madeforkids, List<String> topics) {
         this.name = name;
         this.description = description;
         this.country = country;

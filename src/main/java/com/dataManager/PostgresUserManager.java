@@ -56,7 +56,41 @@ public class PostgresUserManager {
             e.printStackTrace();
         }
 
+
     }
 
+    public void createTableUser() {
 
+        // Be carefull: It deletes data if table already exists.
+        //
+        Statement stmt = null;
+        Connection connection = null;
+
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+
+            // String dropTable = "DROP TABLE tasks";
+
+            String createTable = "CREATE TABLE user (" +
+                    "id SERIAL PRIMARY KEY, " +
+                    "username varchar(100) NOT NULL, " +
+                    "password varchar(250) NOT NULL)";
+
+            // stmt.executeUpdate(dropTable);
+
+            stmt.executeUpdate(createTable);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }
