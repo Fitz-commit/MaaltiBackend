@@ -1,5 +1,6 @@
-package com;
+package com.dataManager;
 
+import com.User.User;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import java.sql.Connection;

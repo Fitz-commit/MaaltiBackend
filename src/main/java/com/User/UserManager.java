@@ -1,4 +1,6 @@
-package com;
+package com.User;
+
+import com.dataManager.PostgresUserManager;
 
 public class UserManager {
 
