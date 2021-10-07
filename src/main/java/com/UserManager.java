@@ -1,6 +1,4 @@
-package User;
-
-import Postgres.PostgresUserManager;
+package com;
 
 public class UserManager {
 

@@ -1,4 +1,4 @@
-package User;
+package com;
 
 public class User {
 

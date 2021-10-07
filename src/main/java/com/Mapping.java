@@ -1,8 +1,5 @@
-package Testing;
+package com;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -18,7 +15,7 @@ public class Mapping {
     //Theoretisch alles möglich mit API KEY?
 
     @GetMapping("/getYoutuber")
-    public Youtuber getYoutuber( String Youtuber) throws GeneralSecurityException, IOException {
+    public Youtuber getYoutuber(String Youtuber) throws GeneralSecurityException, IOException {
 
         return YTAPICall.channelListUsername(Youtuber);
     }

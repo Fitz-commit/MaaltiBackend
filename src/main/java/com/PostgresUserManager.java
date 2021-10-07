@@ -1,6 +1,5 @@
-package Postgres;
+package com;
 
-import User.User;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import java.sql.Connection;
