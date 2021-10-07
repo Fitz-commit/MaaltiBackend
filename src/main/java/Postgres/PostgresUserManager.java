@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 public class PostgresUserManager {
 
-    String databaseURL = "ec2-44-198-154-255.compute-1.amazonaws.com";
+    String databaseURL = "jdbc:postgresql://ec2-44-198-154-255.compute-1.amazonaws.com:5432/d7qge5jkshgd2d";
     String username = "uikohzgximdiqt";
     String password = "6291a8a304ee6f4bffa41fd499eeb93270c2edbf777392092cd5946339bc51d5";
     BasicDataSource basicDataSource;
