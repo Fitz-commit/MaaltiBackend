@@ -19,7 +19,7 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test:2.5.4') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
-    implementation 'commons-dbcp:commons-dbcp:20030825.184428'
+    implementation 'commons-dbcp:commons-dbcp:1.4'
     implementation 'com.google.apis:google-api-services-youtube:v3-rev20210915-1.32.1'
     implementation 'com.google.api-client:google-api-client:1.23.0'
     implementation 'com.google.apis:google-api-services-youtube:v3-rev222-1.25.0'
