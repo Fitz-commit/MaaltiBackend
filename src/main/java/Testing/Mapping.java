@@ -17,11 +17,6 @@ public class Mapping {
     //Abklären was wir von der API brauchen.
     //Theoretisch alles möglich mit API KEY?
 
-    @GetMapping("/getYoutuber")
-    public Youtuber getYoutuber() throws GeneralSecurityException, IOException {
-    return null;
-    }
-
 
 
 }
