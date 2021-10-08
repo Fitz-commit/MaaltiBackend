@@ -53,12 +53,12 @@ public class YTAPICall {
         return initializeYoutuber(response);
     }
 
-    public static void channelListID(String ID) throws IOException {
+    public static Youtuber channelListID(String ID) throws IOException {
         ChannelListResponse response = request.setKey(DEVELOPER_KEY)
                 .setId(ID)
                 .execute();
 
-        initializeYoutuber(response);
+        return initializeYoutuber(response);
     }
 
     public static void searchChannel(String Username) throws GeneralSecurityException, IOException {
