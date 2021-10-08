@@ -38,7 +38,7 @@ public class PostgresUserManager {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
             String udapteSQL = "INSERT into users (username, password, id) VALUES (" +
-                    "'" + user.getUsername() + "', " +
+                    "'" + user.getEmail() + "', " +
                     "'" + user.getPassword() + "', " +
                     "'" + user.getId() + "')";
 
@@ -59,7 +59,7 @@ public class PostgresUserManager {
 
     }
 
-    public void createTableUser() {
+    public void createTableUsers() {
 
         // Be carefull: It deletes data if table already exists.
         //
@@ -78,6 +78,35 @@ public class PostgresUserManager {
                     "password varchar(250) NOT NULL)";
 
             // stmt.executeUpdate(dropTable);
+
+            stmt.executeUpdate(createTable);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public void deleteTableUsers() {
+
+
+        Statement stmt = null;
+        Connection connection = null;
+
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+
+
+            String createTable = "DROP TABLE users";
+
 
             stmt.executeUpdate(createTable);
 

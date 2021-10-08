@@ -4,8 +4,8 @@ import com.dataManager.PostgresUserManager;
 
 public class UserManager {
 
-    public void addUser(User user){
-        PostgresUserManager.getPostgresUserManager().createTableUser();
+    public static void addUser(User user){
+
         PostgresUserManager.getPostgresUserManager().addUser(user);
 
     }
