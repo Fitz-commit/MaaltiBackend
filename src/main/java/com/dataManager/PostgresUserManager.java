@@ -72,7 +72,7 @@ public class PostgresUserManager {
 
             // String dropTable = "DROP TABLE tasks";
 
-            String createTable = "CREATE TABLE user (" +
+            String createTable = "CREATE TABLE users (" +
                     "id SERIAL PRIMARY KEY, " +
                     "username varchar(100) NOT NULL, " +
                     "password varchar(250) NOT NULL)";
