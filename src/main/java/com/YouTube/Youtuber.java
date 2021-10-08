@@ -35,5 +35,19 @@ public class Youtuber {
         this.topics = topics;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCreatorid() {
+        return creatorid;
+    }
+
+    public void setCreatorid(String creatorid) {
+        this.creatorid = creatorid;
+    }
 }

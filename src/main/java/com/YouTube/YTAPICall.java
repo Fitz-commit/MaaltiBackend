@@ -28,7 +28,7 @@ public class YTAPICall {
     static {
         try {
             youtubeService = YTAPICall.getService();
-            request = youtubeService.channels().list("snippet,contentDetails,statistics");
+            request = youtubeService.channels().list("snippet,topicDetails,statistics,status");
             searchrequest = youtubeService.search().list("snippet");
         } catch (GeneralSecurityException e) {
             e.printStackTrace();

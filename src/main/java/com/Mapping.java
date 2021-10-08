@@ -16,9 +16,9 @@ public class Mapping {
     //Abklären was wir von der API brauchen.
     //Theoretisch alles möglich mit API KEY?
 
-    @GetMapping("/searchYouTuber")
-    public Youtuber getYoutuber(@RequestParam String YoutuberName) throws GeneralSecurityException, IOException {
-        return YTAPICall.channelListUsername(YoutuberName);
+    @GetMapping("/channellist")
+    public Youtuber getYoutuber(@RequestParam String name) throws GeneralSecurityException, IOException {
+        return YTAPICall.channelListUsername(name);
     }
 
 
