@@ -9,9 +9,6 @@ public class Testing {
     public static void main(String[] args) {
 
 
-        PostgresUserManager.getPostgresUserManager().deleteTableUsers();
-
-
     }
 
 }
