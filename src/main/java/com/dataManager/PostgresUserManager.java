@@ -4,8 +4,11 @@ import com.User.User;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PostgresUserManager {
 
@@ -58,6 +61,33 @@ public class PostgresUserManager {
 
 
     }
+
+    public String searchUser(String email, String password) {
+        Statement stmt = null;
+        Connection connection = null;
+        String id = null;
+
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE email= " + email + "AND  password=" + password);
+            id = rs.getString("id");
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return id;
+        
+    }
+
 
     public void createTableUsers() {
 

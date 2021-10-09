@@ -5,6 +5,7 @@ import com.YouTube.YTAPICall;
 import com.YouTube.Youtuber;
 import com.dataManager.PostgresUserManager;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -15,9 +16,6 @@ import java.security.GeneralSecurityException;
 @RequestMapping("/api/v1.0")
 public class Mapping {
 
-    //TODO
-    //Abklären was wir von der API brauchen.
-    //Theoretisch alles möglich mit API KEY?
 
     @GetMapping("/channellistname")
     public Youtuber getYoutuberByName(@RequestParam String name) throws GeneralSecurityException, IOException {
@@ -29,11 +27,17 @@ public class Mapping {
         return YTAPICall.channelListID(id);
     }
 
-    @PostMapping(path = "/register")
+    @PostMapping(path = "/register", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
     public String addUser(@RequestBody String email, String password) {
         PostgresUserManager.getPostgresUserManager().addUser(new User(email,password));
         return "User ist registriert";
     }
+
+    @GetMapping("/login")
+    public String login(@RequestParam String email, String password) throws GeneralSecurityException, IOException {
+        return PostgresUserManager.getPostgresUserManager().searchUser(email, password);
+    }
+
 
 }
