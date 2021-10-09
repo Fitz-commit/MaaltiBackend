@@ -50,4 +50,8 @@ public class Youtuber {
     public void setCreatorid(String creatorid) {
         this.creatorid = creatorid;
     }
+
+    public String getDescription() {
+        return description;
+    }
 }

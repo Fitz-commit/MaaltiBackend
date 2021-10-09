@@ -40,7 +40,7 @@ public class PostgresUserManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            String udapteSQL = "INSERT into users (username, password, id) VALUES (" +
+            String udapteSQL = "INSERT into users (email, password, id) VALUES (" +
                     "'" + user.getEmail() + "', " +
                     "'" + user.getPassword() + "', " +
                     "'" + user.getId() + "')";
@@ -62,7 +62,7 @@ public class PostgresUserManager {
 
     }
 
-    public String searchUser(String email, String password) {
+    public boolean searchUser(String email, String password) {
         Statement stmt = null;
         Connection connection = null;
         String id = null;
@@ -70,9 +70,12 @@ public class PostgresUserManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE email= " + email + "AND  password=" + password);
-            id = rs.getString("id");
-            
+            ResultSet rs = stmt.executeQuery("SELECT id, email, password FROM users WHERE email=" + "'"+email+"' AND  password=" + "'" + password + "'" );
+            while(rs.next()){
+                id = rs.getString("id");
+            }
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -84,7 +87,11 @@ public class PostgresUserManager {
             e.printStackTrace();
         }
         
-        return id;
+        if (id == null){
+            return false;
+        }
+
+        return true;
         
     }
 
@@ -104,7 +111,7 @@ public class PostgresUserManager {
 
             String createTable = "CREATE TABLE users (" +
                     "id SERIAL PRIMARY KEY, " +
-                    "username varchar(100) NOT NULL, " +
+                    "email varchar(100) NOT NULL, " +
                     "password varchar(250) NOT NULL)";
 
             // stmt.executeUpdate(dropTable);

@@ -35,8 +35,8 @@ public class Mapping {
     }
 
     @GetMapping("/login")
-    public String login(@RequestParam String email, String password) throws GeneralSecurityException, IOException {
-        return PostgresUserManager.getPostgresUserManager().searchUser(email, password);
+    public void login(@RequestParam String email, String password) throws GeneralSecurityException, IOException {
+        PostgresUserManager.getPostgresUserManager().searchUser(email, password);
     }
 
 
