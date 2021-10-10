@@ -21,7 +21,7 @@ public class Youtuber {
     private boolean madeforkids;
     private List<String> topics;
     private VideoListResponse videos;
-    private int itemcount = videos.getItems().size();
+    private int itemcount ;
     private BigInteger totalviews;
     private BigInteger totalcomments;
     private BigInteger totallikes;

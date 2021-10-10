@@ -11,9 +11,10 @@ public class Testing {
 
     public static void main(String[] args) throws GeneralSecurityException, IOException {
 
-
+        Mapping m1 = new Mapping();
         //System.out.println(PostgresUserManager.getPostgresUserManager());
         //YTAPICall.searchVideos("UCYJ61XIK64sp6ZFFS8sctxw", "date");
+        System.out.println(m1.getYoutuberByName("Gronkh"));
 
     }
 
