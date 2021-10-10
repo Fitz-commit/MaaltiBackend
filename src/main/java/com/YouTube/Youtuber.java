@@ -78,13 +78,44 @@ public class Youtuber {
         return creatorid;
     }
 
-
     public String getDescription() {
         return description;
     }
 
     public VideoListResponse getVideos() {
         return videos;
+    }
+
+    public String getProfilbild() {
+        return profilbild;
+    }
+
+    public int getCreationdate() {
+        return creationdate;
+    }
+
+    public String getCustomURL() {
+        return customURL;
+    }
+
+    public BigInteger getViewcount() {
+        return viewcount;
+    }
+
+    public BigInteger getVideocount() {
+        return videocount;
+    }
+
+    public BigInteger getSubcount() {
+        return subcount;
+    }
+
+    public boolean isMadeforkids() {
+        return madeforkids;
+    }
+
+    public List<String> getTopics() {
+        return topics;
     }
 
     public void setVideos(VideoListResponse videos) {
