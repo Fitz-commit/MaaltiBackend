@@ -1,8 +1,10 @@
 package com.YouTube;
 
+import com.google.api.services.youtube.model.VideoListResponse;
+
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class Youtuber {
 
@@ -18,6 +20,16 @@ public class Youtuber {
     private BigInteger subcount;
     private boolean madeforkids;
     private List<String> topics;
+    private VideoListResponse videos;
+    private int itemcount = videos.getItems().size();
+    private BigInteger totalviews;
+    private BigInteger totalcomments;
+    private BigInteger totallikes;
+    private BigInteger totaldislikes;
+    private BigInteger averageviews;
+    private BigInteger averagecomments;
+    private BigInteger averagelikes;
+    private BigInteger averagedislikes;
 
 
     public Youtuber(String name, String description, String country, String profilbild, int creationdate, String creatorid, String customURL, BigInteger viewcount, BigInteger videocount, BigInteger subcount, boolean madeforkids, List<String> topics) {
@@ -35,23 +47,48 @@ public class Youtuber {
         this.topics = topics;
     }
 
+    public void getKennzahlenBasis(){
+        int counter=0;
+
+        for(ListIterator<com.google.api.services.youtube.model.Video> VideoIterator = videos.getItems().listIterator(); VideoIterator.hasNext(); ){
+            totalviews.add(videos.getItems().get(counter).getStatistics().getViewCount());
+            totalcomments.add(videos.getItems().get(counter).getStatistics().getCommentCount());
+            totallikes.add(videos.getItems().get(counter).getStatistics().getLikeCount());
+            totaldislikes.add(videos.getItems().get(counter).getStatistics().getDislikeCount());
+            counter++;
+            VideoIterator.next();
+        }
+
+    }
+
+    public void berechneKennzahlen(){
+        averageviews.add(totalviews.divide(BigInteger.valueOf(itemcount)));
+        averagecomments.add(totalcomments.divide(BigInteger.valueOf((itemcount))));
+        averagelikes.add(totallikes.divide(BigInteger.valueOf(itemcount)));
+        averagedislikes.add(totaldislikes.divide(BigInteger.valueOf((itemcount))));
+    }
+
+
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getCreatorid() {
         return creatorid;
     }
 
-    public void setCreatorid(String creatorid) {
-        this.creatorid = creatorid;
-    }
 
     public String getDescription() {
         return description;
     }
+
+    public VideoListResponse getVideos() {
+        return videos;
+    }
+
+    public void setVideos(VideoListResponse videos) {
+        this.videos = videos;
+    }
+
 }

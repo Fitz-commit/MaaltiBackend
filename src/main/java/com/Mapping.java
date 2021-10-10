@@ -4,12 +4,14 @@ import com.User.User;
 import com.YouTube.YTAPICall;
 import com.YouTube.Youtuber;
 import com.dataManager.PostgresUserManager;
+import com.google.api.services.youtube.model.SearchResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -27,6 +29,17 @@ public class Mapping {
         return YTAPICall.channelListID(id);
     }
 
+    @GetMapping("/searchlistname")
+    public List<SearchResult> searchYoutuberByName(@RequestParam String name) throws GeneralSecurityException, IOException {
+        return YTAPICall.searchChannel(name);
+    }
+
+    @GetMapping("/searchlistid")
+    public void searchYoutuberByID(@RequestParam String id) throws GeneralSecurityException, IOException {
+        //return YTAPICall.searchChannel(id);
+    }
+
+
     @PostMapping(path = "/register", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
     public String addUser(@RequestBody String email, String password) {
@@ -35,8 +48,8 @@ public class Mapping {
     }
 
     @GetMapping("/login")
-    public void login(@RequestParam String email, String password) throws GeneralSecurityException, IOException {
-        PostgresUserManager.getPostgresUserManager().searchUser(email, password);
+    public boolean login(@RequestParam String email, String password) throws GeneralSecurityException, IOException {
+        return PostgresUserManager.getPostgresUserManager().searchUser(email, password);
     }
 
 

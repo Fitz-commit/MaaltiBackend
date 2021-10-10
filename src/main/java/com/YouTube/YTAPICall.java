@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.util.List;
+import java.util.ListIterator;
 
 
 public class YTAPICall {
@@ -24,6 +25,7 @@ public class YTAPICall {
     private static YouTube youtubeService;
     private static YouTube.Channels.List request;
     private static YouTube.Search.List searchrequest;
+
 
     static {
         try {
@@ -61,24 +63,49 @@ public class YTAPICall {
         return initializeYoutuber(response);
     }
 
-    public static void searchChannel(String Username) throws GeneralSecurityException, IOException {
-        SearchListResponse response = searchrequest.setMaxResults(25L)
+    public static List<SearchResult> searchChannel(String Username) throws GeneralSecurityException, IOException {
+        SearchListResponse response = searchrequest.setMaxResults(50L)
                 .setKey(DEVELOPER_KEY)
                 .setQ(Username)
                 .setType("channel")
                 .execute();
 
+        //Mehrere youtuber klassen erstellen ?
+        return response.getItems();
+
     }
 
-    public static void searchVideos(String ID, String Order) throws IOException {
-        SearchListResponse response = searchrequest.setMaxResults(50L)
+    public static VideoListResponse searchVideos(Youtuber youtuber, String Order) throws IOException {
+        SearchListResponse response = searchrequest.setMaxResults(50l)
                 .setKey(DEVELOPER_KEY)
-                .setChannelId(ID)
+                .setChannelId(youtuber.getCreatorid())
                 .setType("video")
                 .setOrder(Order)
                 .execute();
 
+        String videoid= "";
+        int counter = 0;
+
+        for(ListIterator<SearchResult> iter = response.getItems().listIterator(); iter.hasNext(); ){
+
+            videoid = videoid + response.getItems().get(counter).getId().getVideoId() + ",";
+
+            counter= counter +1;
+            iter.next();
+        }
+
+        return getVideoData(videoid);
+
     }
+
+    public static VideoListResponse getVideoData(String videoid) throws IOException {
+        YouTube.Videos.List request = youtubeService.videos()
+                .list("snippet,contentDetails,statistics");
+        VideoListResponse response = request.setId(videoid).execute();
+        return response;
+    }
+
+
 
     public static Youtuber initializeYoutuber(ChannelListResponse response){
 
