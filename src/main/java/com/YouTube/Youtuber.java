@@ -125,4 +125,7 @@ public class Youtuber {
         this.videos = videos;
     }
 
+    public VideoListResponse getVideos() {
+        return videos;
+    }
 }
