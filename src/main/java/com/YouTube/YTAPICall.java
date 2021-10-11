@@ -56,12 +56,16 @@ public class YTAPICall {
         return initializeYoutuber(response);
     }
 
-    public static Youtuber channelListID(String ID) throws IOException {
+    public static Youtuber channelListID(String ID) throws IOException, GeneralSecurityException {
         ChannelListResponse response = request.setKey(DEVELOPER_KEY)
                 .setId(ID)
                 .execute();
 
-        return initializeYoutuber(response);
+        Youtuber InitializedYoutuber = initializeYoutuber(response);
+        InitializedYoutuber.setVideos(searchVideos(InitializedYoutuber, "date"));
+
+
+        return InitializedYoutuber;
     }
 
     public static List<Youtuber> searchChannel(String Username) throws GeneralSecurityException, IOException {
@@ -88,7 +92,7 @@ public class YTAPICall {
 
     }
 
-    public static VideoListResponse searchVideos(Youtuber youtuber, String Order) throws IOException {
+    public static VideoListResponse searchVideos(Youtuber youtuber, String Order) throws IOException, GeneralSecurityException {
         SearchListResponse response = searchrequest.setMaxResults(50l)
                 .setKey(DEVELOPER_KEY)
                 .setChannelId(youtuber.getCreatorid())
@@ -101,20 +105,28 @@ public class YTAPICall {
 
         for(ListIterator<SearchResult> iter = response.getItems().listIterator(); iter.hasNext(); ){
 
-            videoid = videoid + response.getItems().get(counter).getId().getVideoId() + ",";
+            videoid = videoid + response.getItems().get(counter).getId().getVideoId() +",";
+
+
 
             counter= counter +1;
             iter.next();
+
         }
+
+        videoid = videoid.substring(0, videoid.length()-1);
 
         return getVideoData(videoid);
 
     }
 
-    public static VideoListResponse getVideoData(String videoid) throws IOException {
+    public static VideoListResponse getVideoData(String videoid) throws IOException, GeneralSecurityException {
         YouTube.Videos.List request = youtubeService.videos()
                 .list("snippet,contentDetails,statistics");
-        VideoListResponse response = request.setId(videoid).execute();
+        VideoListResponse response = request.setKey(DEVELOPER_KEY)
+                .setMaxResults(50l)
+                .setId(videoid)
+                .execute();
         return response;
     }
 

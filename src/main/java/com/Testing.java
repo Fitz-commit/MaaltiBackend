@@ -14,8 +14,8 @@ public class Testing {
         Mapping m1 = new Mapping();
         //System.out.println(PostgresUserManager.getPostgresUserManager());
         //YTAPICall.searchVideos("UCYJ61XIK64sp6ZFFS8sctxw", "date");
-        System.out.println(m1.searchYoutuberByName("Pietsmiet"));
-
+        //System.out.println(m1.searchYoutuberByName("Pietsmiet"));
+        System.out.println(YTAPICall.channelListID("UCYJ61XIK64sp6ZFFS8sctxw"));
     }
 
 }
