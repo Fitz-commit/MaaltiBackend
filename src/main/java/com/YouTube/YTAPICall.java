@@ -12,6 +12,7 @@ import com.google.api.services.youtube.model.*;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -63,15 +64,27 @@ public class YTAPICall {
         return initializeYoutuber(response);
     }
 
-    public static List<SearchResult> searchChannel(String Username) throws GeneralSecurityException, IOException {
+    public static List<Youtuber> searchChannel(String Username) throws GeneralSecurityException, IOException {
         SearchListResponse response = searchrequest.setMaxResults(50L)
                 .setKey(DEVELOPER_KEY)
                 .setQ(Username)
                 .setType("channel")
                 .execute();
 
-        //Mehrere youtuber klassen erstellen ?
-        return response.getItems();
+        int counter = 0;
+        List<Youtuber> youtuberpreview = new ArrayList<>();
+        for(ListIterator<SearchResult> iter = response.getItems().listIterator(); iter.hasNext(); ){
+
+            SearchResultSnippet snippet = response.getItems().get(counter).getSnippet();
+
+            youtuberpreview.add(new Youtuber(snippet.getTitle(),  snippet.getThumbnails().getDefault().getUrl() , snippet.getChannelId()));
+
+
+            counter= counter +1;
+            iter.next();
+        }
+
+        return youtuberpreview;
 
     }
 
@@ -118,7 +131,7 @@ public class YTAPICall {
         String description = snippet.getDescription();
         String country = snippet.getCountry();
         String profilbild = snippet.getThumbnails().getMedium().getUrl();
-        int creationdate = snippet.getPublishedAt().getTimeZoneShift();
+        int creationdate = snippet.getPublishedAt().getTimeZoneShift(); //TODO überarbeiten
         String id = response.getItems().get(0).getId();
         String customURL = snippet.getCustomUrl();
         BigInteger viewcount = statistics.getViewCount();

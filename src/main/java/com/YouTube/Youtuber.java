@@ -32,6 +32,12 @@ public class Youtuber {
     private BigInteger averagedislikes;
 
 
+    public Youtuber(String name, String profilbild, String creatorid) {
+        this.name = name;
+        this.profilbild = profilbild;
+        this.creatorid = creatorid;
+    }
+
     public Youtuber(String name, String description, String country, String profilbild, int creationdate, String creatorid, String customURL, BigInteger viewcount, BigInteger videocount, BigInteger subcount, boolean madeforkids, List<String> topics) {
         this.name = name;
         this.description = description;
@@ -82,9 +88,6 @@ public class Youtuber {
         return description;
     }
 
-    public VideoListResponse getVideos() {
-        return videos;
-    }
 
     public String getProfilbild() {
         return profilbild;

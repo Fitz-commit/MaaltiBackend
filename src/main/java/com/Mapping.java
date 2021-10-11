@@ -30,7 +30,7 @@ public class Mapping {
     }
 
     @GetMapping("/searchlistname")
-    public List<SearchResult> searchYoutuberByName(@RequestParam String name) throws GeneralSecurityException, IOException {
+    public List<Youtuber> searchYoutuberByName(@RequestParam String name) throws GeneralSecurityException, IOException {
         return YTAPICall.searchChannel(name);
     }
 
