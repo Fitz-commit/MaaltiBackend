@@ -157,7 +157,7 @@ public class YTAPICall {
         String description = snippet.getDescription();
         String country = snippet.getCountry();
         String profilbild = snippet.getThumbnails().getMedium().getUrl();
-        Date creationdate = Date.from(Instant.ofEpochSecond(snippet.getPublishedAt().getValue()));
+        String creationdate = snippet.getPublishedAt().toString();
         String id = response.getItems().get(0).getId();
         String customURL = snippet.getCustomUrl();
         BigInteger viewcount = statistics.getViewCount();
