@@ -24,9 +24,14 @@ public class Mapping {
         return YTAPICall.channelListUsername(name);
     }
 
-    @GetMapping("/channellistid")
+    @GetMapping(value = "/channellistid", params = {"id"})
     public Youtuber getYoutuberById(@RequestParam String id) throws GeneralSecurityException, IOException {
         return YTAPICall.channelListID(id);
+    }
+
+    @GetMapping(value = "/channellistid", params = { "id", "order"})
+    public Youtuber getYoutuberById(@RequestParam String id, String order) throws GeneralSecurityException, IOException {
+        return YTAPICall.channelListID(id,order);
     }
 
 
@@ -36,7 +41,7 @@ public class Mapping {
     }
 
 
-    @PostMapping(path = "/register", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(path = "/register", consumes = {MediaType.APPLICATION_JSON_VALUE}) //TODO Was wenn EMail schon vorhanden ?
     @ResponseStatus(HttpStatus.OK)
     public String addUser(@RequestBody String email, String password) {
         PostgresUserManager.getPostgresUserManager().addUser(new User(email,password));
