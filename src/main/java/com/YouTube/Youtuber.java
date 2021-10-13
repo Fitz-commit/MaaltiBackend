@@ -3,6 +3,7 @@ package com.YouTube;
 import com.google.api.services.youtube.model.VideoListResponse;
 
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -12,7 +13,7 @@ public class Youtuber {
     private String description;
     private String country;
     private String profilbild;
-    private int creationdate;
+    private Date creationdate;
     private String creatorid;
     private String customURL;
     private BigInteger viewcount;
@@ -38,7 +39,7 @@ public class Youtuber {
         this.creatorid = creatorid;
     }
 
-    public Youtuber(String name, String description, String country, String profilbild, int creationdate, String creatorid, String customURL, BigInteger viewcount, BigInteger videocount, BigInteger subcount, boolean madeforkids, List<String> topics) {
+    public Youtuber(String name, String description, String country, String profilbild, Date creationdate, String creatorid, String customURL, BigInteger viewcount, BigInteger videocount, BigInteger subcount, boolean madeforkids, List<String> topics) {
         this.name = name;
         this.description = description;
         this.country = country;
@@ -93,7 +94,7 @@ public class Youtuber {
         return profilbild;
     }
 
-    public int getCreationdate() {
+    public Date getCreationdate() {
         return creationdate;
     }
 

@@ -12,7 +12,9 @@ import com.google.api.services.youtube.model.*;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -155,7 +157,7 @@ public class YTAPICall {
         String description = snippet.getDescription();
         String country = snippet.getCountry();
         String profilbild = snippet.getThumbnails().getMedium().getUrl();
-        int creationdate = snippet.getPublishedAt().getTimeZoneShift(); //TODO überarbeiten
+        Date creationdate = Date.from(Instant.ofEpochSecond(snippet.getPublishedAt().getValue()));
         String id = response.getItems().get(0).getId();
         String customURL = snippet.getCustomUrl();
         BigInteger viewcount = statistics.getViewCount();
