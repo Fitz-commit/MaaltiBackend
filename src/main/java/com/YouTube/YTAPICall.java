@@ -68,6 +68,18 @@ public class YTAPICall {
         return InitializedYoutuber;
     }
 
+    public static Youtuber channelListID(String ID, String order) throws IOException, GeneralSecurityException {
+        ChannelListResponse response = request.setKey(DEVELOPER_KEY)
+                .setId(ID)
+                .execute();
+
+        Youtuber InitializedYoutuber = initializeYoutuber(response);
+        InitializedYoutuber.setVideos(searchVideos(InitializedYoutuber, order));
+
+
+        return InitializedYoutuber;
+    }
+
     public static List<Youtuber> searchChannel(String Username) throws GeneralSecurityException, IOException {
         SearchListResponse response = searchrequest.setMaxResults(50L)
                 .setKey(DEVELOPER_KEY)
