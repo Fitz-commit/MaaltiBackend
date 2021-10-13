@@ -7,8 +7,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PostgresUserManager {
 
@@ -32,7 +30,15 @@ public class PostgresUserManager {
         return postgresUserManager;
     }
 
-    public void addUser(User user) {
+    public String addUser(User user) {
+
+        if (searchUser(user.getEmail())){
+            return "User bereits registriert!";
+        }
+
+        if(!user.getEmail().contains("@") || !user.getEmail().contains(".")){
+            return "Keine valide Email!";
+        }
 
         Statement stmt = null;
         Connection connection = null;
@@ -60,6 +66,7 @@ public class PostgresUserManager {
         }
 
 
+        return "User wurde registriert";
     }
 
     public boolean searchUser(String email, String password) {
@@ -93,6 +100,39 @@ public class PostgresUserManager {
 
         return true;
         
+    }
+
+    public boolean searchUser(String email) {
+        Statement stmt = null;
+        Connection connection = null;
+        String id = null;
+
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT id, email, password FROM users WHERE email=" + "'"+email+"'");
+            while(rs.next()){
+                id = rs.getString("id");
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (id == null){
+            return false;
+        }
+
+        return true;
+
     }
 
 
@@ -136,6 +176,7 @@ public class PostgresUserManager {
 
         Statement stmt = null;
         Connection connection = null;
+
 
         try {
             connection = basicDataSource.getConnection();

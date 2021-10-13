@@ -76,7 +76,7 @@ public class YTAPICall {
                 .execute();
 
         Youtuber InitializedYoutuber = initializeYoutuber(response);
-        InitializedYoutuber.setVideos(searchVideos(InitializedYoutuber, order));
+        InitializedYoutuber.setVideos(searchVideos(InitializedYoutuber, order));//TODO Theoretisch kann man doch die Videos direkt beim initlisieren mituafnehmen oder?
 
 
         return InitializedYoutuber;
