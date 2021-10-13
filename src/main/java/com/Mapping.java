@@ -29,10 +29,6 @@ public class Mapping {
         return YTAPICall.channelListID(id);
     }
 
-    @GetMapping("/channellistid")
-    public Youtuber getYoutuberById(@RequestParam String id, String order) throws GeneralSecurityException, IOException {
-        return YTAPICall.channelListID(id,order);
-    }
 
     @GetMapping("/searchlistname")
     public List<Youtuber> searchYoutuberByName(@RequestParam String name) throws GeneralSecurityException, IOException {
