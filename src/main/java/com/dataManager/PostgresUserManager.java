@@ -36,9 +36,6 @@ public class PostgresUserManager {
             return "User bereits registriert!";
         }
 
-        if(!user.getEmail().contains("@") || !user.getEmail().contains(".")){
-            return "Keine valide Email!";
-        }
 
         Statement stmt = null;
         Connection connection = null;
@@ -67,6 +64,34 @@ public class PostgresUserManager {
 
 
         return "User wurde registriert";
+    }
+
+    public long getDatabaseID(){
+        Statement stmt = null;
+        Connection connection = null;
+        long id = 0;
+
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT MAX(id) FROM users");
+            while(rs.next()){
+                id = rs.getLong(1);
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return id;
     }
 
     public boolean searchUser(String email, String password) {

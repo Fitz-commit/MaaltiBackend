@@ -43,9 +43,8 @@ public class Mapping {
 
     @PostMapping(path = "/register", consumes = {MediaType.APPLICATION_JSON_VALUE}) //TODO Was wenn EMail schon vorhanden ?
     @ResponseStatus(HttpStatus.OK)
-    public String addUser(@RequestBody String email, String password) {
+    public void addUser(@RequestBody String email, String password) {
         PostgresUserManager.getPostgresUserManager().addUser(new User(email,password));
-        return "User ist registriert";
     }
 
     @GetMapping("/login")

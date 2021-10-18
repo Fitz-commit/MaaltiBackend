@@ -1,10 +1,12 @@
 package com.User;
 
+import com.dataManager.PostgresUserManager;
+
 public class User {
 
     private String email;
     private String password;
-    private int id = 0;
+    private long id = 0;
     private String token;
 
     public User(String email, String password) {
@@ -37,11 +39,13 @@ public class User {
         this.token = token;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
     private void generateID(){
-        this.id = this.id +1;
+        PostgresUserManager post = PostgresUserManager.getPostgresUserManager();
+        this.id = post.getDatabaseID() +1;
+
     }
 }
