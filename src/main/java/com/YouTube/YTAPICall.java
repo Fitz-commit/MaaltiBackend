@@ -95,7 +95,7 @@ public class YTAPICall {
 
             SearchResultSnippet snippet = response.getItems().get(counter).getSnippet();
 
-            youtuberpreview.add(new Youtuber(snippet.getTitle(),  snippet.getThumbnails().getDefault().getUrl() , snippet.getChannelId()));
+            youtuberpreview.add(new Youtuber(snippet.getTitle(),  snippet.getThumbnails().getDefault().getUrl() , snippet.getChannelId(), snippet.getDescription()));
 
 
             counter= counter +1;
