@@ -87,6 +87,7 @@ public class YTAPICall {
                 .setKey(DEVELOPER_KEY)
                 .setQ(Username)
                 .setType("channel")
+                .setOrder("relevance")
                 .execute();
 
         int counter = 0;
