@@ -41,6 +41,12 @@ public class Mapping {
         return abc;
     }
 
+    @GetMapping(value ="/searchlistname", params = {"name", "country"})
+    public List<Youtuber> searchYoutuberByName(@RequestParam String name, String country) throws GeneralSecurityException, IOException {
+        List<Youtuber>  abc = YTAPICall.searchChannel(name,country);
+        return abc;
+    }
+
 
     @PostMapping(path = "/register", consumes = {MediaType.APPLICATION_JSON_VALUE}) //TODO Was wenn EMail schon vorhanden ?
     @ResponseStatus(HttpStatus.OK)

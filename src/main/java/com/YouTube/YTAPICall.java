@@ -85,7 +85,7 @@ public class YTAPICall {
     public static List<Youtuber> searchChannel(String Username) throws GeneralSecurityException, IOException {
         SearchListResponse response = searchrequest.setMaxResults(50L)
                 .setKey(DEVELOPER_KEY)
-                .setQ(Username)
+                .setQ(Username) //TODO Region Parameter hinzufügen
                 .setType("channel")
                 .setOrder("relevance")
                 .execute();
@@ -106,6 +106,34 @@ public class YTAPICall {
         return youtuberpreview;
 
     }
+
+    public static List<Youtuber> searchChannel(String Username, String country) throws GeneralSecurityException, IOException {
+        SearchListResponse response = searchrequest.setMaxResults(50L)
+                .setKey(DEVELOPER_KEY)
+                .setQ(Username)
+                .setRegionCode(country)
+                .setType("channel")
+                .setOrder("relevance")
+                .execute();
+
+        int counter = 0;
+        List<Youtuber> youtuberpreview = new ArrayList<>();
+        for(ListIterator<SearchResult> iter = response.getItems().listIterator(); iter.hasNext(); ){
+
+            SearchResultSnippet snippet = response.getItems().get(counter).getSnippet();
+
+            youtuberpreview.add(new Youtuber(snippet.getTitle(),  snippet.getThumbnails().getDefault().getUrl() , snippet.getChannelId(), snippet.getDescription()));
+
+
+            counter= counter +1;
+            iter.next();
+        }
+
+        return youtuberpreview;
+
+    }
+
+
 
     public static VideoListResponse searchVideos(Youtuber youtuber, String Order) throws IOException, GeneralSecurityException {
         SearchListResponse response = searchrequest.setMaxResults(50l)
