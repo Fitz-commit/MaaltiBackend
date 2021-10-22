@@ -4,6 +4,7 @@ import com.User.User;
 import com.YouTube.YTAPICall;
 import com.YouTube.Youtuber;
 import com.dataManager.PostgresUserManager;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.api.services.youtube.model.SearchResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -61,7 +63,10 @@ public class Mapping {
 
     @PostMapping(path = "/addfavor", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
-    public void addfavor(@RequestBody String creator_id, int user_id) {
+    public void addfavor(@RequestBody ObjectNode objectNode) {
+        String creator_id = objectNode.get("creator_id").asText();
+        int user_id = objectNode.get("user_id").asInt();
+
         PostgresUserManager.getPostgresUserManager().addFavorite(creator_id, user_id);
     }
 
