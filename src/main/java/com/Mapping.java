@@ -48,10 +48,10 @@ public class Mapping {
     }
 
 
-    @PostMapping(path = "/register", consumes = {MediaType.APPLICATION_JSON_VALUE}) //TODO Was wenn EMail schon vorhanden ?
+    @PostMapping(path = "/register", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
-    public void addUser(@RequestBody String email, String password) {
-        PostgresUserManager.getPostgresUserManager().addUser(new User(email,password));
+    public void addUser(@RequestBody User user) {
+        PostgresUserManager.getPostgresUserManager().addUser(user);
     }
 
     @GetMapping("/login")

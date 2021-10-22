@@ -68,7 +68,7 @@ public class Youtuber {
 
     }
 
-    public void berechneKennzahlen(){
+    public void berechneKennzahlen(){ //TODO Kennzahlen in eigene Klasse
         averageviews = totalviews.divide(BigInteger.valueOf(itemcount));
         averagecomments = totalcomments.divide(BigInteger.valueOf((itemcount)));
         averagelikes =totallikes.divide(BigInteger.valueOf(itemcount));
