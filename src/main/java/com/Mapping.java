@@ -59,5 +59,11 @@ public class Mapping {
         return PostgresUserManager.getPostgresUserManager().searchUser(email, password);
     }
 
+    @PostMapping(path = "/addfavor", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseStatus(HttpStatus.OK)
+    public void addfavor(@RequestBody Youtuber yt, int user_id) {
+        PostgresUserManager.getPostgresUserManager().addFavorite(yt, user_id);
+    }
+
 
 }

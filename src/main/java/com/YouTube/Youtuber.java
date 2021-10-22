@@ -32,6 +32,12 @@ public class Youtuber {
     private BigInteger averagedislikes= BigInteger.valueOf(0);
 
 
+    public Youtuber(String name, String profilbild, String creatorid) {
+        this.name = name;
+        this.profilbild = profilbild;
+        this.creatorid = creatorid;
+    }
+
     public Youtuber(String name, String profilbild, String creatorid, String description) {
         this.name = name;
         this.profilbild = profilbild;

@@ -1,6 +1,7 @@
 package com.dataManager;
 
 import com.User.User;
+import com.YouTube.Youtuber;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import java.sql.Connection;
@@ -160,6 +161,39 @@ public class PostgresUserManager {
 
     }
 
+    public boolean addFavorite(Youtuber youtuber, int user_id) {
+        Statement stmt = null;
+        Connection connection = null;
+        String id = null;
+
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("");
+            while(rs.next()){
+                id = rs.getString("id");
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (id == null){
+            return false;
+        }
+
+        return true;
+
+    }
+
 
     public void createTableUsers() {
 
@@ -174,10 +208,9 @@ public class PostgresUserManager {
 
             // String dropTable = "DROP TABLE tasks";
 
-            String createTable = "CREATE TABLE users (" +
-                    "id SERIAL PRIMARY KEY, " +
-                    "email varchar(100) NOT NULL, " +
-                    "password varchar(250) NOT NULL)";
+            String createTable = "CREATE TABLE favorites (" +
+                    "user_id int , " +
+                    "youtuber_id varchar(250))";
 
             // stmt.executeUpdate(dropTable);
 
