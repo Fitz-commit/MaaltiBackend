@@ -161,20 +161,21 @@ public class PostgresUserManager {
 
     }
 
-    public boolean addFavorite(Youtuber youtuber, int user_id) {
+    public boolean addFavorite(String creator_id, int user_id) {
         Statement stmt = null;
         Connection connection = null;
-        String id = null;
 
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("");
-            while(rs.next()){
-                id = rs.getString("id");
-            }
+            String udapteSQL = "INSERT into favorites(user_id, creator_id) VALUES ("
+                    +"'" + user_id + "', " +
+                    "'" + creator_id + "')";
 
+            stmt.executeUpdate(udapteSQL);
 
+            stmt.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -184,10 +185,6 @@ public class PostgresUserManager {
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-
-        if (id == null){
-            return false;
         }
 
         return true;
@@ -210,7 +207,7 @@ public class PostgresUserManager {
 
             String createTable = "CREATE TABLE favorites (" +
                     "user_id int , " +
-                    "youtuber_id varchar(250))";
+                    "creator_id varchar(250))";
 
             // stmt.executeUpdate(dropTable);
 
@@ -241,7 +238,7 @@ public class PostgresUserManager {
             stmt = connection.createStatement();
 
 
-            String createTable = "DROP TABLE users";
+            String createTable = "DROP TABLE favorites";
 
 
             stmt.executeUpdate(createTable);
