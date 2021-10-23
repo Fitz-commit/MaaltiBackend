@@ -52,13 +52,17 @@ public class Mapping {
 
     @PostMapping(path = "/register", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
-    public void addUser(@RequestBody User user) {
-        PostgresUserManager.getPostgresUserManager().addUser(user);
+    public String addUser(@RequestBody User user) {
+        return PostgresUserManager.getPostgresUserManager().addUser(user);
     }
 
     @GetMapping("/login")
-    public boolean login(@RequestParam String email, String password) throws GeneralSecurityException, IOException {
-        return PostgresUserManager.getPostgresUserManager().searchUser(email, password);
+    public String login(@RequestParam String email, String password) throws GeneralSecurityException, IOException {
+        if(PostgresUserManager.getPostgresUserManager().searchUser(email, password)){
+
+        }
+
+        return null;
     }
 
     @PostMapping(path = "/addfavor", consumes = {MediaType.APPLICATION_JSON_VALUE})

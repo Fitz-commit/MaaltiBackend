@@ -205,9 +205,11 @@ public class PostgresUserManager {
 
             // String dropTable = "DROP TABLE tasks";
 
-            String createTable = "CREATE TABLE favorites (" +
-                    "user_id int , " +
-                    "creator_id varchar(250))";
+            String createTable = "CREATE TABLE users (" +
+                    "id SERIAL PRIMARY KEY, " +
+                    "email varchar(100) NOT NULL, " +
+                    "password varchar(250) NOT NULL, " +
+                    "cookie varchar(250))";
 
             // stmt.executeUpdate(dropTable);
 
@@ -238,7 +240,7 @@ public class PostgresUserManager {
             stmt = connection.createStatement();
 
 
-            String createTable = "DROP TABLE favorites";
+            String createTable = "DROP TABLE users";
 
 
             stmt.executeUpdate(createTable);
