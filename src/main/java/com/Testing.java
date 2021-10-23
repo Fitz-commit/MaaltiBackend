@@ -11,13 +11,11 @@ public class Testing {
 
     public static void main(String[] args) throws GeneralSecurityException, IOException {
 
-
-        PostgresUserManager.getPostgresUserManager().deleteTableUsers();
-        PostgresUserManager.getPostgresUserManager().createTableUsers();
+        Mapping m1 = new Mapping();
         //YTAPICall.searchVideos("UCYJ61XIK64sp6ZFFS8sctxw", "date");
         //System.out.println(m1.searchYoutuberByName("Pietsmiet"));
         //System.out.println(m1.getYoutuberById("UCYJ61XIK64sp6ZFFS8sctxw"));
-        //System.out.println(m1.getYoutuberById("UCYJ61XIK64sp6ZFFS8sctxw"));
+        System.out.println(m1.getYoutuberById("UCYJ61XIK64sp6ZFFS8sctxw"));
     }
 
 }

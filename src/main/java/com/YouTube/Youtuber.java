@@ -21,7 +21,7 @@ public class Youtuber {
     private boolean madeforkids;
     private List<String> topics;
     private VideoListResponse videos;
-    private YoutubeKennzahl kennzahlen;
+    private YoutubeKennzahl kennzahlen = new YoutubeKennzahl();
     private int itemcount ;
 
 
