@@ -59,18 +59,15 @@ public class Mapping {
     }
 
     @GetMapping("/login")
-    public Cookie login(@RequestParam String email, String password) throws GeneralSecurityException, IOException {
-        //int id = PostgresUserManager.getPostgresUserManager().searchUser(email, password);
+    public String login(@RequestParam String email, String password) throws GeneralSecurityException, IOException {
+        int id = PostgresUserManager.getPostgresUserManager().searchUser(email, password);
 
-        //if(id == 0 ){
-           // return null;
-        //}
-
-
-
-        //PostgresUserManager.getPostgresUserManager().addCookie(id,);
-        return CookieGenerator.generateCookie();
-
+        if(id == 0 ){
+           return "Email-Adresse oder Passwort sind inkorrekt!";
+        }
+        String cookie = CookieGenerator.generateCookie();
+        PostgresUserManager.getPostgresUserManager().addCookie(id, cookie);
+        return cookie;
     }
 
     @PostMapping(path = "/addfavor", consumes = {MediaType.APPLICATION_JSON_VALUE})

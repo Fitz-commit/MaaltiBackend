@@ -1,16 +1,14 @@
 package com.User;
 
-import javax.servlet.http.Cookie;
+
+import java.util.UUID;
 
 public class CookieGenerator {
 
-    public static Cookie generateCookie(){
-
-        Cookie cookie = new Cookie("abc","def");
-
-        cookie.setMaxAge(500);
-
-        return cookie;
+    public static String generateCookie(){
+        String uuid = UUID.randomUUID().toString();
+        uuid.replace("-","");
+        return uuid;
     }
 
 }
