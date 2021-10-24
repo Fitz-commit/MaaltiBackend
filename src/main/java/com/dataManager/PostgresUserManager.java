@@ -31,6 +31,33 @@ public class PostgresUserManager {
         return postgresUserManager;
     }
 
+    public String addCookie(int id, String cookie){
+
+        Statement stmt = null;
+        Connection connection = null;
+
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            String udapteSQL = "UPDATE users SET cookie=" + "'" + cookie + "'" + "WHERE id= " + id;
+
+            stmt.executeUpdate(udapteSQL);
+
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public String addUser(User user) {
 
         if (searchUser(user.getEmail())){
@@ -95,17 +122,17 @@ public class PostgresUserManager {
         return id;
     }
 
-    public boolean searchUser(String email, String password) {
+    public int searchUser(String email, String password) {
         Statement stmt = null;
         Connection connection = null;
-        String id = null;
+        int id = 0;
 
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT id, email, password FROM users WHERE email=" + "'"+email+"' AND  password=" + "'" + password + "'" );
             while(rs.next()){
-                id = rs.getString("id");
+                id = rs.getInt("id");
             }
 
 
@@ -119,12 +146,9 @@ public class PostgresUserManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
-        if (id == null){
-            return false;
-        }
 
-        return true;
+
+        return id;
         
     }
 

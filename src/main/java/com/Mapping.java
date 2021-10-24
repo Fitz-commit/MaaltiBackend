@@ -1,5 +1,6 @@
 package com;
 
+import com.User.CookieGenerator;
 import com.User.User;
 import com.YouTube.YTAPICall;
 import com.YouTube.Youtuber;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.List;
@@ -57,12 +59,18 @@ public class Mapping {
     }
 
     @GetMapping("/login")
-    public String login(@RequestParam String email, String password) throws GeneralSecurityException, IOException {
-        if(PostgresUserManager.getPostgresUserManager().searchUser(email, password)){
+    public Cookie login(@RequestParam String email, String password) throws GeneralSecurityException, IOException {
+         int id = PostgresUserManager.getPostgresUserManager().searchUser(email, password);
 
+        if(id == 0 ){
+            return null;
         }
 
-        return null;
+
+
+        //PostgresUserManager.getPostgresUserManager().addCookie(id,);
+        return CookieGenerator.generateCookie();
+
     }
 
     @PostMapping(path = "/addfavor", consumes = {MediaType.APPLICATION_JSON_VALUE})
