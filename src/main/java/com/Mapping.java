@@ -60,11 +60,11 @@ public class Mapping {
 
     @GetMapping("/login")
     public Cookie login(@RequestParam String email, String password) throws GeneralSecurityException, IOException {
-         int id = PostgresUserManager.getPostgresUserManager().searchUser(email, password);
+        //int id = PostgresUserManager.getPostgresUserManager().searchUser(email, password);
 
-        if(id == 0 ){
-            return null;
-        }
+        //if(id == 0 ){
+           // return null;
+        //}
 
 
 
