@@ -31,7 +31,7 @@ public class PostgresUserManager {
         return postgresUserManager;
     }
 
-    public String addCookie(int id, String cookie){
+    public void addCookie(int id, String cookie){
 
         Statement stmt = null;
         Connection connection = null;
@@ -55,7 +55,6 @@ public class PostgresUserManager {
             e.printStackTrace();
         }
 
-        return null;
     }
 
     public String addUser(User user) {
