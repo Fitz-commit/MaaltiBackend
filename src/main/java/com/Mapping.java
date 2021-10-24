@@ -63,7 +63,7 @@ public class Mapping {
         int id = PostgresUserManager.getPostgresUserManager().searchUser(email, password);
 
         if(id == 0 ){
-           return "Email-Adresse oder Passwort sind inkorrekt!";
+           return null;
         }
         String cookie = CookieGenerator.generateCookie();
         PostgresUserManager.getPostgresUserManager().addCookie(id, cookie);
