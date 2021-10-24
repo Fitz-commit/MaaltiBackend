@@ -96,10 +96,11 @@ public class PostgresUserManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            String udapteSQL = "INSERT into users (email, password, id) VALUES (" +
+            String udapteSQL = "INSERT into users (email, password, id, cookie) VALUES (" +
                     "'" + user.getEmail() + "', " +
                     "'" + user.getPassword() + "', " +
-                    "'" + user.getId() + "')";
+                    "'" + user.getId() + "', " +
+                    "'" + "')";
 
             stmt.executeUpdate(udapteSQL);
 
