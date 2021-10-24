@@ -31,6 +31,32 @@ public class PostgresUserManager {
         return postgresUserManager;
     }
 
+    public void delCookie(String cookie){
+
+        Statement stmt = null;
+        Connection connection = null;
+
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            String udapteSQL = "UPDATE users SET cookie=" + "'" + "'" +"WHERE cookie= " + "'" + cookie + "'";
+
+            stmt.executeUpdate(udapteSQL);
+
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void addCookie(int id, String cookie){
 
         Statement stmt = null;

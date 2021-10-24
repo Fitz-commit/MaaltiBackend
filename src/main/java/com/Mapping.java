@@ -70,6 +70,11 @@ public class Mapping {
         return cookie;
     }
 
+    @GetMapping("/logout")
+    public void logout(@RequestParam String cookie) throws GeneralSecurityException, IOException {
+        PostgresUserManager.getPostgresUserManager().delCookie(cookie);
+    }
+
     @PostMapping(path = "/addfavor", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
     public void addfavor(@RequestBody ObjectNode objectNode) {
