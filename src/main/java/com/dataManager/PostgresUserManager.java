@@ -42,13 +42,17 @@ public class PostgresUserManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT creator_id, name, profilbild FROM favorites INNER JOIN youtuber ON favorites.creator_id = youtuber.id WHERE user_id=" +  "'" + user_id +"'");
+            ResultSet rs = stmt.executeQuery("SELECT creator_id, name, profilbild " +
+                    "FROM favorites " +
+                    "INNER JOIN youtuber " +
+                    "ON favorites.creator_id = youtuber.id "+
+                    "WHERE user_id=" + user_id);
             while (rs.next()) {
                 youtuber.add(
                         new Youtuber(
                                 rs.getString("name"),
                                 rs.getString("profilbild"),
-                                rs.getString("crator_id")
+                                rs.getString("creator_id")
                         )
                 );
             }
@@ -308,7 +312,7 @@ public class PostgresUserManager {
     }
 
 
-    public boolean addFavorite(String creator_id, int user_id) {
+    public boolean addFavor(String creator_id, int user_id) {
         Statement stmt = null;
         Connection connection = null;
 
@@ -431,6 +435,8 @@ public class PostgresUserManager {
     }
 
     public void addYoutuber(String creator_id, String name, String profilbild) {
+
+        //TODO TESTEN OB ZEILEN ÜBERSCHRIEBEN WERDEN
 
         Statement stmt = null;
         Connection connection = null;

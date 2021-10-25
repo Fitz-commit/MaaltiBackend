@@ -7,16 +7,13 @@ import com.YouTube.YTAPICall;
 import com.YouTube.Youtuber;
 import com.dataManager.PostgresUserManager;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.google.api.services.youtube.model.SearchResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.List;
-import java.util.Map;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -90,7 +87,7 @@ public class Mapping {
 
         int user_id = PostgresUserManager.getPostgresUserManager().getId(cookie);
 
-        PostgresUserManager.getPostgresUserManager().addFavorite(creator_id, user_id);
+        PostgresUserManager.getPostgresUserManager().addFavor(creator_id, user_id);
         PostgresUserManager.getPostgresUserManager().addYoutuber(creator_id,name, profilbild);
     }
 
@@ -104,7 +101,7 @@ public class Mapping {
         String profilbild = objectNode.get("profilbild").asText(); //macht es sinn die in der Datenbank aufzunehmen ?
 
 
-        PostgresUserManager.getPostgresUserManager().addFavorite(creator_id, user_id);
+        PostgresUserManager.getPostgresUserManager().addFavor(creator_id, user_id);
         PostgresUserManager.getPostgresUserManager().addYoutuber(creator_id,name, profilbild);
     }
 
