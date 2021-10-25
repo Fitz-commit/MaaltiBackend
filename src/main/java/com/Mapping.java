@@ -51,15 +51,18 @@ public class Mapping {
         return abc;
     }
 
-
     @PostMapping(path = "/register", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
     public String addUser(@RequestBody User user) {
         return PostgresUserManager.getPostgresUserManager().addUser(user);
     }
 
-    @GetMapping("/login")
-    public String login(@RequestParam String email, String password) throws GeneralSecurityException, IOException {
+    @PostMapping(path= "/login" , consumes = {MediaType.APPLICATION_JSON_VALUE} )
+    @ResponseStatus(HttpStatus.OK)
+    public String login(@RequestParam ObjectNode objectNode) throws GeneralSecurityException, IOException {
+        String email = objectNode.get("email").asText();
+        String password = objectNode.get("password").asText();
+
         int id = PostgresUserManager.getPostgresUserManager().searchUser(email, password);
 
         if(id == 0 ){
@@ -78,11 +81,29 @@ public class Mapping {
     @PostMapping(path = "/addfavor", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
     public void addfavor(@RequestBody ObjectNode objectNode) {
+
+        //TODO  ID in weiter Datenbank speichern oder yt call
+
         String creator_id = objectNode.get("creator_id").asText();
         int user_id = objectNode.get("user_id").asInt();
+        String name = objectNode.get("name").asText();
+        String profilbild = objectNode.get("profilbild").asText();
 
         PostgresUserManager.getPostgresUserManager().addFavorite(creator_id, user_id);
+        PostgresUserManager.getPostgresUserManager().addYoutuber(creator_id,name, profilbild);
     }
+
+    @GetMapping("/delfavor")
+    public void delfavor(@RequestParam String cookie) throws GeneralSecurityException, IOException {
+
+    }
+
+    @GetMapping("/profil")
+    public void getProfil(@RequestParam int user_id) throws GeneralSecurityException, IOException {
+
+    }
+
+
 
 
 }

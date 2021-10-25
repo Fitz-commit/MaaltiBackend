@@ -255,11 +255,10 @@ public class PostgresUserManager {
 
             // String dropTable = "DROP TABLE tasks";
 
-            String createTable = "CREATE TABLE users (" +
-                    "id SERIAL PRIMARY KEY, " +
-                    "email varchar(100) NOT NULL, " +
-                    "password varchar(250) NOT NULL, " +
-                    "cookie varchar(250))";
+            String createTable = "CREATE TABLE youtuber (" +
+                    "id varchar(250) PRIMARY KEY, " +
+                    "name varchar(200), " +
+                    "profilbild varchar(250))";
 
             // stmt.executeUpdate(dropTable);
 
@@ -305,6 +304,36 @@ public class PostgresUserManager {
             e.printStackTrace();
         }
 
+
+    }
+
+    public void addYoutuber(String creator_id, String name, String profilbild) {
+
+        Statement stmt = null;
+        Connection connection = null;
+
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            String udapteSQL = "INSERT into favorites(creator_id,name,profilbild) VALUES ("
+                    +"'" + creator_id + "', " +
+                    "'" + name + "', " +
+                    "'" + profilbild + "')";
+
+            stmt.executeUpdate(udapteSQL);
+
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 }
