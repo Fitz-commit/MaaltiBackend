@@ -41,26 +41,25 @@ public class Mapping {
 
     @GetMapping("/searchlistname")
     public List<Youtuber> searchYoutuberByName(@RequestParam String name) throws GeneralSecurityException, IOException {
-        List<Youtuber>  abc = YTAPICall.searchChannel(name);
-        return abc;
+        return YTAPICall.searchChannel(name);
+
     }
 
     @GetMapping(value ="/searchlistname", params = {"name", "country"})
     public List<Youtuber> searchYoutuberByName(@RequestParam String name, String country) throws GeneralSecurityException, IOException {
-        List<Youtuber>  abc = YTAPICall.searchChannel(name,country);
-        return abc;
+        return YTAPICall.searchChannel(name,country);
     }
 
     @PostMapping(path = "/register", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
-    public String addUser(@RequestBody User user) {
+    public boolean addUser(@RequestBody User user) {
         return PostgresUserManager.getPostgresUserManager().addUser(user);
     }
 
-    @PostMapping(path= "/login" , consumes = {MediaType.APPLICATION_JSON_VALUE} )
+    @PostMapping(path= "/login" , consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
-    public String login(@RequestParam ObjectNode objectNode){
-        //TODO funktioniert nicht
+    public String login(@RequestBody ObjectNode objectNode){
+
         String email = objectNode.get("email").asText();
         String password = objectNode.get("password").asText();
 
@@ -83,6 +82,8 @@ public class Mapping {
     @ResponseStatus(HttpStatus.OK)
     public void addfavor(@RequestBody ObjectNode objectNode) {
 
+        //TODO Cookie einbauen
+
         String creator_id = objectNode.get("creator_id").asText();
         int user_id = objectNode.get("user_id").asInt();
         String name = objectNode.get("name").asText();
@@ -93,7 +94,12 @@ public class Mapping {
     }
 
     @GetMapping("/delfavor")
-    public void delfavor(@RequestParam String cookie) throws GeneralSecurityException, IOException {
+    public void delfavor(@RequestParam String cookie, String creator_id) throws GeneralSecurityException, IOException {
+        //TODO testen
+
+        int user_id = PostgresUserManager.getPostgresUserManager().getId(cookie);
+
+        PostgresUserManager.getPostgresUserManager().delFavor(user_id,creator_id);
 
     }
 

@@ -83,10 +83,10 @@ public class PostgresUserManager {
 
     }
 
-    public String addUser(User user) {
+    public boolean addUser(User user) {
 
         if (searchUser(user.getEmail())){
-            return "User bereits registriert!";
+            return false;
         }
 
 
@@ -117,7 +117,7 @@ public class PostgresUserManager {
         }
 
 
-        return "User wurde registriert";
+        return true;
     }
 
     public long getDatabaseID(){
@@ -211,6 +211,37 @@ public class PostgresUserManager {
 
     }
 
+    public int getId(String cookie) {
+        Statement stmt = null;
+        Connection connection = null;
+        int id = 0;
+
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT id FROM users WHERE cookie=" + "'"+cookie+"'");
+            while(rs.next()){
+                id = rs.getInt("id");
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return id;
+
+    }
+
+
     public boolean addFavorite(String creator_id, int user_id) {
         Statement stmt = null;
         Connection connection = null;
@@ -238,6 +269,32 @@ public class PostgresUserManager {
         }
 
         return true;
+
+    }
+
+    public void delFavor(int user_id, String creator_id){
+
+        Statement stmt = null;
+        Connection connection = null;
+
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            String udapteSQL = "UPDATE favorites SET user_id=" + "'" +"'" +", creator_id=" +"'"+ "'" + "WHERE user_id= " + user_id +"AND creator_id=" + "'" + creator_id + "'" ;
+
+            stmt.executeUpdate(udapteSQL);
+
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
