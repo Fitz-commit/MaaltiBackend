@@ -60,7 +60,7 @@ public class Mapping {
     @PostMapping(path= "/login" , consumes = {MediaType.APPLICATION_JSON_VALUE} )
     @ResponseStatus(HttpStatus.OK)
     public String login(@RequestParam ObjectNode objectNode){
-
+        //TODO funktioniert nicht
         String email = objectNode.get("email").asText();
         String password = objectNode.get("password").asText();
 
@@ -82,8 +82,6 @@ public class Mapping {
     @PostMapping(path = "/addfavor", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
     public void addfavor(@RequestBody ObjectNode objectNode) {
-
-        //TODO  ID in weiter Datenbank speichern oder yt call
 
         String creator_id = objectNode.get("creator_id").asText();
         int user_id = objectNode.get("user_id").asInt();

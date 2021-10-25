@@ -307,7 +307,7 @@ public class PostgresUserManager {
 
     }
 
-    public void addYoutuber(String creator_id, String name, String profilbild) {
+    public void addYoutuber(String creator_id, String name, String profilpicture) {
 
         Statement stmt = null;
         Connection connection = null;
@@ -315,10 +315,10 @@ public class PostgresUserManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            String udapteSQL = "INSERT into favorites(creator_id,name,profilbild) VALUES ("
+            String udapteSQL = "INSERT into youtuber(creator_id,name,profilbild) VALUES ("
                     +"'" + creator_id + "', " +
                     "'" + name + "', " +
-                    "'" + profilbild + "')";
+                    "'" + profilpicture + "')";
 
             stmt.executeUpdate(udapteSQL);
 
