@@ -93,7 +93,7 @@ public class Mapping {
 
     @PostMapping(path = "/addfavortest", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
-    public void addfavortest(@RequestBody ObjectNode objectNode) {
+    public boolean addfavortest(@RequestBody ObjectNode objectNode) {
 
         String creator_id = objectNode.get("creator_id").asText();
         int user_id = objectNode.get("user_id").asInt();
@@ -103,15 +103,18 @@ public class Mapping {
 
         PostgresUserManager.getPostgresUserManager().addFavor(creator_id, user_id);
         PostgresUserManager.getPostgresUserManager().addYoutuber(creator_id,name, profilbild);
+
+        return true;
     }
 
     @GetMapping("/delfavor")
-    public void delfavor(@RequestParam String cookie, String creator_id) throws GeneralSecurityException, IOException {
-        //TODO testen
+    public boolean delfavor(@RequestParam String cookie, String creator_id) throws GeneralSecurityException, IOException {
 
         int user_id = PostgresUserManager.getPostgresUserManager().getId(cookie);
 
         PostgresUserManager.getPostgresUserManager().delFavor(user_id,creator_id);
+
+        return true;
 
     }
 
