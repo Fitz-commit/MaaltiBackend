@@ -1,6 +1,7 @@
 package com;
 
 import com.User.CookieGenerator;
+import com.User.Profil;
 import com.User.User;
 import com.YouTube.YTAPICall;
 import com.YouTube.Youtuber;
@@ -118,8 +119,8 @@ public class Mapping {
     }
 
     @GetMapping("/profil")
-    public void getProfil(@RequestParam int user_id) throws GeneralSecurityException, IOException {
-
+    public Profil getProfil(@RequestParam String cookie) throws GeneralSecurityException, IOException {
+        return new Profil(cookie);
     }
 
 

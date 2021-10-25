@@ -24,7 +24,11 @@ public class Youtuber {
     private YoutubeKennzahl kennzahlen = new YoutubeKennzahl();
     private int itemcount ;
 
-
+    public Youtuber(String name, String profilbild, String creatorid) {
+        this.name = name;
+        this.profilbild = profilbild;
+        this.creatorid = creatorid;
+    }
 
     public Youtuber(String name, String profilbild, String creatorid, String description) {
         this.name = name;

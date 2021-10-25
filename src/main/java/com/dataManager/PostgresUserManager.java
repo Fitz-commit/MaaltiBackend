@@ -8,6 +8,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class PostgresUserManager {
 
@@ -30,6 +33,40 @@ public class PostgresUserManager {
             postgresUserManager = new PostgresUserManager();
         return postgresUserManager;
     }
+
+    public List<Youtuber> getAllFavorites(int user_id) {
+        List<Youtuber> youtuber = new ArrayList<>();
+        Statement stmt = null;
+        Connection connection = null;
+
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT creator_id, name, profilbild FROM favorites INNER JOIN youtuber ON favorites.creator_id = youtuber.id WHERE user_id=" +  "'" + user_id +"'");
+            while (rs.next()) {
+                youtuber.add(
+                        new Youtuber(
+                                rs.getString("name"),
+                                rs.getString("profilbild"),
+                                rs.getString("crator_id")
+                        )
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return youtuber;
+    }
+
 
     public void delCookie(String cookie){
 
@@ -208,6 +245,35 @@ public class PostgresUserManager {
         }
 
         return true;
+
+    }
+
+    public String searchUser(int user_id) {
+        Statement stmt = null;
+        Connection connection = null;
+        String email = null;
+
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT id, email, password FROM users WHERE id=" +user_id);
+            while(rs.next()){
+                email = rs.getString("email");
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return email;
 
     }
 
