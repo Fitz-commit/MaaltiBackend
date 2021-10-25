@@ -59,11 +59,8 @@ public class Mapping {
 
     @PostMapping(path= "/login" , consumes = {MediaType.APPLICATION_JSON_VALUE} )
     @ResponseStatus(HttpStatus.OK)
-    public String login(@RequestParam ObjectNode objectNode) throws GeneralSecurityException, IOException {
-        String email = objectNode.get("email").asText();
-        String password = objectNode.get("password").asText();
-
-        int id = PostgresUserManager.getPostgresUserManager().searchUser(email, password);
+    public String login(@RequestParam User user) throws GeneralSecurityException, IOException {
+        int id = PostgresUserManager.getPostgresUserManager().searchUser(user.getEmail(), user.getPassword());
 
         if(id == 0 ){
            return null;
