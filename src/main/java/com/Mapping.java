@@ -82,12 +82,26 @@ public class Mapping {
     @ResponseStatus(HttpStatus.OK)
     public void addfavor(@RequestBody ObjectNode objectNode) {
 
-        //TODO Cookie einbauen
+        String creator_id = objectNode.get("creator_id").asText();
+        String cookie = objectNode.get("cookie").asText();
+        String name = objectNode.get("name").asText();
+        String profilbild = objectNode.get("profilbild").asText(); //macht es sinn die in der Datenbank aufzunehmen ?
+
+        int user_id = PostgresUserManager.getPostgresUserManager().getId(cookie);
+
+        PostgresUserManager.getPostgresUserManager().addFavorite(creator_id, user_id);
+        PostgresUserManager.getPostgresUserManager().addYoutuber(creator_id,name, profilbild);
+    }
+
+    @PostMapping(path = "/addfavortest", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseStatus(HttpStatus.OK)
+    public void addfavortest(@RequestBody ObjectNode objectNode) {
 
         String creator_id = objectNode.get("creator_id").asText();
         int user_id = objectNode.get("user_id").asInt();
         String name = objectNode.get("name").asText();
-        String profilbild = objectNode.get("profilbild").asText();
+        String profilbild = objectNode.get("profilbild").asText(); //macht es sinn die in der Datenbank aufzunehmen ?
+
 
         PostgresUserManager.getPostgresUserManager().addFavorite(creator_id, user_id);
         PostgresUserManager.getPostgresUserManager().addYoutuber(creator_id,name, profilbild);
