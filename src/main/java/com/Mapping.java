@@ -115,7 +115,7 @@ public class Mapping {
 
     }
 
-    @GetMapping("/profil")
+    @GetMapping("/user/profil")
     public Profil getProfil(@RequestParam String cookie) throws GeneralSecurityException, IOException {
         return new Profil(cookie);
     }
