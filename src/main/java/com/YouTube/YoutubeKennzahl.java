@@ -78,14 +78,14 @@ public class YoutubeKennzahl{
     }
 
     public void berechneEngagmentrate(BigInteger subcount){
-        BigInteger entgagment = subcount.add(totallikes.add(totalcomments.add(totaldislikes)));
+        BigInteger entgagment = totallikes.add(totalcomments.add(totaldislikes));
 
         this.engagmentrate = (entgagment.divide(subcount).doubleValue())*100;
 
     }
 
     public void berechneApplausrate(BigInteger subcount){
-        this.applausrate= totallikes.divide(subcount).doubleValue();
+        this.applausrate= totallikes.divide(subcount).doubleValue()*100;
 
     }
 
