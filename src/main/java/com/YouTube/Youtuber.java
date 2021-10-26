@@ -116,6 +116,9 @@ public class Youtuber {
         itemcount = this.videos.getItems().size();
         kennzahlen.kennzahlenBasis(videos);
         kennzahlen.berechneKennzahlen(itemcount);
+        kennzahlen.berechneApplausrate(subcount);
+        kennzahlen.berechneEngagmentrate(subcount);
+        kennzahlen.berechneReichweite(subcount,videos);
     }
 
 }
