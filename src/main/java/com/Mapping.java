@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.List;
@@ -121,6 +122,15 @@ public class Mapping {
     @GetMapping("/user/profil")
     public Profil getProfil(@RequestParam String cookie) throws GeneralSecurityException, IOException {
         return new Profil(cookie);
+    }
+
+    @GetMapping("/user/pwforgotten")
+    public boolean pwforgotten(@RequestParam String email) throws MessagingException {
+        if(PostgresUserManager.getPostgresUserManager().searchUser(email)){
+            Mailman.sendMail(email);
+            return true;
+        }
+        return false;
     }
 
 
