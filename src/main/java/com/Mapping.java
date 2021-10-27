@@ -126,7 +126,7 @@ public class Mapping {
 
     @GetMapping("/user/pwforgotten")
     public boolean pwforgotten(@RequestParam String email) throws MessagingException {
-        if(PostgresUserManager.getPostgresUserManager().searchUser(email)){
+        if(PostgresUserManager.getPostgresUserManager().searchUser(email)){//TODO testen
             Mailman.sendMail(email);
             return true;
         }

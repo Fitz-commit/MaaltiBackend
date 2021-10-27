@@ -41,7 +41,7 @@ public class Mailman {
                 Message.RecipientType.TO, InternetAddress.parse("tim.federolf@gmx.de"));
         message.setSubject("Mail Subject");
 
-        String msg = "Bitte Passwort des Users: " + email + " zurücksetzen!";
+        String msg = "Bitte Passwort des Users: " + email + " zuruecksetzen!";
 
         MimeBodyPart mimeBodyPart = new MimeBodyPart();
         mimeBodyPart.setContent(msg, "text/html");
