@@ -3,16 +3,11 @@ package com;
 
 import javax.mail.*;
 import javax.mail.internet.*;
-import java.util.Date;
 import java.util.Properties;
 
 
 
 public class Mailman {
-
-
-
-
 
     public static void sendMail(String email) throws MessagingException {
 

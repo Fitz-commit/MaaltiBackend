@@ -11,6 +11,9 @@ public class YoutubeKennzahl{
 
     private static Comparator COMMENT_COMP = new CommentComparator();
     private static Comparator VIEW_COMP = new ViewComparator();
+    private static Comparator DISLIKE_COMP = new DislikeComparator();
+    private static Comparator LIKE_COMP = new LikeComparator();
+
 
     private BigInteger totalviews = BigInteger.valueOf(0);
     private BigInteger totalcomments = BigInteger.valueOf(0);
@@ -20,13 +23,40 @@ public class YoutubeKennzahl{
     private BigInteger averagecomments = BigInteger.valueOf(0);
     private BigInteger averagelikes= BigInteger.valueOf(0);
     private BigInteger averagedislikes= BigInteger.valueOf(0);
-    private String commentspike =null ; //TODO nötig?
-    private String viewspike = null;
+    private Video mostcomments;
+    private Video mostlikes;
+    private Video mostdislikes;
+    private Video mostviews;
     private Double maxpostreach;
     private Double minpostreach;
     private Double engagmentrate;
     private Double applausrate;
 
+    public YoutubeKennzahl(int itemcount, VideoListResponse videos, BigInteger subcount) {
+        kennzahlenBasis(videos);
+        berechneKennzahlen(itemcount);
+        berechneApplausrate(subcount);
+        berechneEngagmentrate(subcount);
+        berechneReichweite(subcount, videos);
+        berechneSpikes(videos);
+    }
+
+
+    private static class DislikeComparator implements Comparator{
+        public int compare(Object o1, Object o2) {
+            BigInteger c1 = ((Video)o1).getStatistics().getDislikeCount();
+            BigInteger c2 = ((Video)o2).getStatistics().getDislikeCount();
+            return c1.compareTo(c2);
+        }
+    }
+
+    private static class LikeComparator implements Comparator{
+        public int compare(Object o1, Object o2) {
+            BigInteger c1 = ((Video)o1).getStatistics().getLikeCount();
+            BigInteger c2 = ((Video)o2).getStatistics().getLikeCount();
+            return c1.compareTo(c2);
+        }
+    }
 
     private static class CommentComparator implements Comparator{
         public int compare(Object o1, Object o2) {
@@ -44,7 +74,7 @@ public class YoutubeKennzahl{
         }
     }
 
-    public void berechneReichweite(BigInteger subcount, VideoListResponse videos ){
+    private void berechneReichweite(BigInteger subcount, VideoListResponse videos ){
         videos.getItems().sort(VIEW_COMP);
         double subscriber = subcount.doubleValue();
         double lastelement = videos.getItems().get(videos.getItems().size()-1).getStatistics().getViewCount().doubleValue();
@@ -56,14 +86,14 @@ public class YoutubeKennzahl{
 
     }
 
-    public void berechneKennzahlen(int itemcount){
+    private void berechneKennzahlen(int itemcount){
         averageviews = totalviews.divide(BigInteger.valueOf(itemcount));
         averagecomments = totalcomments.divide(BigInteger.valueOf((itemcount)));
         averagelikes =totallikes.divide(BigInteger.valueOf(itemcount));
         averagedislikes =totaldislikes.divide(BigInteger.valueOf((itemcount)));
     }
 
-    public void kennzahlenBasis(VideoListResponse videos){
+    private void kennzahlenBasis(VideoListResponse videos){
         int counter=0;
 
         for(ListIterator<Video> VideoIterator = videos.getItems().listIterator(); VideoIterator.hasNext(); ){
@@ -77,18 +107,47 @@ public class YoutubeKennzahl{
 
     }
 
-    public void berechneEngagmentrate(BigInteger subcount){
+    private void berechneEngagmentrate(BigInteger subcount){
         BigInteger entgagment = totallikes.add(totalcomments.add(totaldislikes));
 
         this.engagmentrate = (entgagment.doubleValue()/subcount.doubleValue())*100;
 
     }
 
-    public void berechneApplausrate(BigInteger subcount){
+    private void berechneApplausrate(BigInteger subcount){
         this.applausrate= (totallikes.doubleValue() / subcount.doubleValue())*100 ;
 
     }
 
+    private void berechneSpikes( VideoListResponse videos){
+        videos.getItems().sort(COMMENT_COMP);
+        this.mostcomments = videos.getItems().get(videos.getItems().size()-1);
+
+        videos.getItems().sort(VIEW_COMP);
+        this.mostviews= videos.getItems().get(videos.getItems().size()-1);
+
+        videos.getItems().sort(DISLIKE_COMP);
+        this.mostdislikes= videos.getItems().get(videos.getItems().size()-1);
+
+        videos.getItems().sort(LIKE_COMP);
+        this.mostlikes= videos.getItems().get(videos.getItems().size()-1);
+    }
+
+    public Video getMostcomments() {
+        return mostcomments;
+    }
+
+    public Video getMostlikes() {
+        return mostlikes;
+    }
+
+    public Video getMostdislikes() {
+        return mostdislikes;
+    }
+
+    public Video getMostviews() {
+        return mostviews;
+    }
 
     public BigInteger getTotalviews() {
         return totalviews;

@@ -21,7 +21,7 @@ public class Youtuber {
     private boolean madeforkids;
     private List<String> topics;
     private VideoListResponse videos;
-    private YoutubeKennzahl kennzahlen = new YoutubeKennzahl();
+    private YoutubeKennzahl kennzahlen;
     private int itemcount ;
 
     public Youtuber(String name, String profilbild, String creatorid) {
@@ -114,11 +114,7 @@ public class Youtuber {
     public void setVideos(VideoListResponse videos) {
         this.videos = videos;
         itemcount = this.videos.getItems().size();
-        kennzahlen.kennzahlenBasis(videos);
-        kennzahlen.berechneKennzahlen(itemcount);
-        kennzahlen.berechneApplausrate(subcount);
-        kennzahlen.berechneEngagmentrate(subcount);
-        kennzahlen.berechneReichweite(subcount,videos);
+        this.kennzahlen = new YoutubeKennzahl(itemcount, videos ,subcount);
     }
 
 }
