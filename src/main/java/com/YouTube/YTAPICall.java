@@ -96,7 +96,7 @@ public class YTAPICall {
 
             SearchResultSnippet snippet = response.getItems().get(counter).getSnippet();
 
-            youtuberpreview.add(new Youtuber(snippet.getTitle(),  snippet.getThumbnails().getDefault().getUrl() , snippet.getChannelId(), snippet.getDescription()));
+            youtuberpreview.add(new Youtuber(snippet.getTitle(),  snippet.getThumbnails().getHigh().getUrl() , snippet.getChannelId(), snippet.getDescription()));
 
 
             counter= counter +1;
@@ -185,7 +185,7 @@ public class YTAPICall {
         String name = snippet.getTitle();
         String description = snippet.getDescription();
         String country = snippet.getCountry();
-        String profilbild = snippet.getThumbnails().getMedium().getUrl();
+        String profilbild = snippet.getThumbnails().getMaxres().getUrl();
         String creationdate = snippet.getPublishedAt().toString();
         String id = response.getItems().get(0).getId();
         String customURL = snippet.getCustomUrl();
