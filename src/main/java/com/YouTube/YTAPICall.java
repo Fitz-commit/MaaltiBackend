@@ -89,6 +89,8 @@ public class YTAPICall {
                 .setType("channel")
                 .setOrder("relevance")
                 .execute();
+        System.out.println(searchrequest);
+        System.out.println("Response :"+response);
 
         int counter = 0;
         List<Youtuber> youtuberpreview = new ArrayList<>();
@@ -102,6 +104,7 @@ public class YTAPICall {
             counter= counter +1;
             iter.next();
         }
+        System.out.println(youtuberpreview);
 
         return youtuberpreview;
 
