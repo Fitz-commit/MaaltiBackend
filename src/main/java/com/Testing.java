@@ -14,12 +14,14 @@ public class Testing {
     public static void main(String[] args) throws GeneralSecurityException, IOException, MessagingException {
         Mapping m1 = new Mapping();
 
-        m1.getYoutuberById("UCYJ61XIK64sp6ZFFS8sctxw");
+        m1.getYoutuberById("UC_x5XG1OV2P6uZZ5FSM9Ttw");
 
+        //TODO WAS WENN YOUTUBER KEINE LIKES HAT ?
         //PostgresUserManager.getPostgresUserManager().addYoutuber("234234324","gg","abc");
         //YTAPICall.searchVideos("UCYJ61XIK64sp6ZFFS8sctxw", "date");
         //System.out.println(m1.searchYoutuberByName("Pietsmiet"));
         //System.out.println(m1.getYoutuberById("UCYJ61XIK64sp6ZFFS8sctxw"));
+        //UC_x5XG1OV2P6uZZ5FSM9Ttw
 
     }
 

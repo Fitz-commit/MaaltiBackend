@@ -46,14 +46,27 @@ public class YoutubeKennzahl{
         public int compare(Object o1, Object o2) {
             BigInteger c1 = ((Video)o1).getStatistics().getDislikeCount();
             BigInteger c2 = ((Video)o2).getStatistics().getDislikeCount();
+
+            if(c1 == null || c2 ==null){
+                c1 = BigInteger.valueOf(0);
+                c2 = BigInteger.valueOf(0);
+            }
+
             return c1.compareTo(c2);
         }
     }
 
     private static class LikeComparator implements Comparator{
         public int compare(Object o1, Object o2) {
+
             BigInteger c1 = ((Video)o1).getStatistics().getLikeCount();
+
             BigInteger c2 = ((Video)o2).getStatistics().getLikeCount();
+
+            if(c1 == null || c2 ==null){
+                c1 = BigInteger.valueOf(0);
+                c2 = BigInteger.valueOf(0);
+            }
             return c1.compareTo(c2);
         }
     }
@@ -62,6 +75,12 @@ public class YoutubeKennzahl{
         public int compare(Object o1, Object o2) {
             BigInteger c1 = ((Video)o1).getStatistics().getCommentCount();
             BigInteger c2 = ((Video)o2).getStatistics().getCommentCount();
+
+            if(c1 == null || c2 ==null){
+                c1 = BigInteger.valueOf(0);
+                c2 = BigInteger.valueOf(0);
+            }
+
             return c1.compareTo(c2);
         }
     }
@@ -98,9 +117,24 @@ public class YoutubeKennzahl{
 
         for(ListIterator<Video> VideoIterator = videos.getItems().listIterator(); VideoIterator.hasNext(); ){
             totalviews =totalviews.add(videos.getItems().get(counter).getStatistics().getViewCount());
-            totalcomments =totalcomments.add(videos.getItems().get(counter).getStatistics().getCommentCount());
-            totallikes= totallikes.add(videos.getItems().get(counter).getStatistics().getLikeCount());
-            totaldislikes =totaldislikes.add(videos.getItems().get(counter).getStatistics().getDislikeCount());
+
+            try {
+                totalcomments = totalcomments.add(videos.getItems().get(counter).getStatistics().getCommentCount());
+            }catch (NullPointerException n){
+                totallikes = totallikes.add(BigInteger.valueOf(0));
+            }
+            try {
+                totallikes = totallikes.add(videos.getItems().get(counter).getStatistics().getLikeCount());
+            }catch (NullPointerException n){
+                totallikes = totallikes.add(BigInteger.valueOf(0));
+            }
+
+            try {
+                totaldislikes =totaldislikes.add(videos.getItems().get(counter).getStatistics().getDislikeCount());
+            } catch (NullPointerException n){
+                totaldislikes = totaldislikes.add(BigInteger.valueOf(0));
+            }
+
             counter++;
             VideoIterator.next();
         }
