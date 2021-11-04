@@ -30,17 +30,7 @@ public class YTAPICall {
     private static YouTube.Search.List searchrequest;
 
 
-    static {
-        try {
-            youtubeService = YTAPICall.getService();
-            request = youtubeService.channels().list("snippet,topicDetails,statistics,status");
-            searchrequest = youtubeService.search().list("snippet");
-        } catch (GeneralSecurityException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
 
     public static YouTube getService() throws GeneralSecurityException, IOException {
@@ -51,6 +41,8 @@ public class YTAPICall {
     }
 
     public static Youtuber channelListUsername(String Username) throws GeneralSecurityException, IOException {
+        youtubeService = YTAPICall.getService();
+        request = youtubeService.channels().list("snippet,topicDetails,statistics,status");
         ChannelListResponse response = request.setKey(DEVELOPER_KEY)
                 .setForUsername(Username)
                 .execute();
@@ -59,6 +51,8 @@ public class YTAPICall {
     }
 
     public static Youtuber channelListID(String ID) throws IOException, GeneralSecurityException {
+        youtubeService = YTAPICall.getService();
+        request = youtubeService.channels().list("snippet,topicDetails,statistics,status");
         ChannelListResponse response = request.setKey(DEVELOPER_KEY)
                 .setId(ID)
                 .execute();
@@ -71,6 +65,8 @@ public class YTAPICall {
     }
 
     public static Youtuber channelListID(String ID, String order) throws IOException, GeneralSecurityException {
+        youtubeService = YTAPICall.getService();
+        request = youtubeService.channels().list("snippet,topicDetails,statistics,status");
         ChannelListResponse response = request.setKey(DEVELOPER_KEY)
                 .setId(ID)
                 .execute();
@@ -83,12 +79,16 @@ public class YTAPICall {
     }
 
     public static List<Youtuber> searchChannel(String Username) throws GeneralSecurityException, IOException {
+        youtubeService = YTAPICall.getService();
+        searchrequest = youtubeService.search().list("snippet");
+
         SearchListResponse response = searchrequest.setMaxResults(50L)
                 .setKey(DEVELOPER_KEY)
                 .setQ(Username) //TODO Region Parameter hinzufügen
                 .setType("channel")
                 .setOrder("relevance")
                 .execute();
+
         System.out.println(searchrequest);
         System.out.println("Response :"+response);
 
@@ -104,13 +104,16 @@ public class YTAPICall {
             counter= counter +1;
             iter.next();
         }
-        System.out.println(youtuberpreview);
+        System.out.println("Liste:"+youtuberpreview);
 
         return youtuberpreview;
 
     }
 
     public static List<Youtuber> searchChannel(String Username, String country) throws GeneralSecurityException, IOException {
+        youtubeService = YTAPICall.getService();
+        searchrequest = youtubeService.search().list("snippet");
+
         SearchListResponse response = searchrequest.setMaxResults(50L)
                 .setKey(DEVELOPER_KEY)
                 .setQ(Username)
@@ -139,6 +142,8 @@ public class YTAPICall {
 
 
     public static VideoListResponse searchVideos(Youtuber youtuber, String Order) throws IOException, GeneralSecurityException {
+        youtubeService = YTAPICall.getService();
+        searchrequest = youtubeService.search().list("snippet");
         SearchListResponse response = searchrequest.setMaxResults(50l)
                 .setKey(DEVELOPER_KEY)
                 .setChannelId(youtuber.getCreatorid())
@@ -167,6 +172,8 @@ public class YTAPICall {
     }
 
     public static VideoListResponse getVideoData(String videoid) throws IOException, GeneralSecurityException {
+        youtubeService = YTAPICall.getService();
+
         YouTube.Videos.List request = youtubeService.videos()
                 .list("snippet,contentDetails,statistics");
         VideoListResponse response = request.setKey(DEVELOPER_KEY)
