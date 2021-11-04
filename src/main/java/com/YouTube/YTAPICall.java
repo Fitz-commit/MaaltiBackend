@@ -185,7 +185,7 @@ public class YTAPICall {
         String name = snippet.getTitle();
         String description = snippet.getDescription();
         String country = snippet.getCountry();
-        String profilbild = snippet.getThumbnails().getMaxres().getUrl();
+        String profilbild = snippet.getThumbnails().getHigh().getUrl();
         String creationdate = snippet.getPublishedAt().toString();
         String id = response.getItems().get(0).getId();
         String customURL = snippet.getCustomUrl();
