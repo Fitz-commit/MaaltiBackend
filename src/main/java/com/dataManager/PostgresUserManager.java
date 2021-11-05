@@ -350,7 +350,7 @@ public class PostgresUserManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            String udapteSQL = "UPDATE favorites SET user_id=" + "'" +"'" +", creator_id=" +"'"+ "'" + "WHERE user_id= " + user_id +"AND creator_id=" + "'" + creator_id + "'" ;
+            String udapteSQL = "DELETE FROM favorites WHERE user_id= " + user_id +"AND creator_id=" + "'" + creator_id + "'" ;
 
             stmt.executeUpdate(udapteSQL);
 
