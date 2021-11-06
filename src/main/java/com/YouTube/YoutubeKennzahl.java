@@ -40,7 +40,7 @@ public class YoutubeKennzahl{
 
     public YoutubeKennzahl(int itemcount, VideoListResponse videos, BigInteger subcount) {
         this.itemcount=itemcount;
-        this.videos = videos;
+        this.videos = videos.clone();
 
         kennzahlenBasis(this.videos);
         berechneKennzahlen(this.itemcount);
