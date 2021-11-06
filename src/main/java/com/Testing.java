@@ -12,9 +12,11 @@ import java.security.GeneralSecurityException;
 public class Testing {
 
     public static void main(String[] args) throws GeneralSecurityException, IOException, MessagingException {
-        Mapping m1 = new Mapping();
+        //Mapping m1 = new Mapping();
 
-        m1.searchYoutuberByName("Kurzgesagt");
+        //m1.searchYoutuberByName("Kurzgesagt");
+
+
 
         //TODO WAS WENN YOUTUBER KEINE LIKES HAT ?
         //PostgresUserManager.getPostgresUserManager().addYoutuber("234234324","gg","abc");

@@ -3,7 +3,9 @@ package com.YouTube;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoListResponse;
 
+import javax.swing.text.NumberFormatter;
 import java.math.BigInteger;
+import java.text.NumberFormat;
 import java.util.Comparator;
 import java.util.ListIterator;
 
@@ -32,13 +34,20 @@ public class YoutubeKennzahl{
     private Double engagmentrate;
     private Double applausrate;
 
+    private int itemcount;
+    private VideoListResponse videos;
+
+
     public YoutubeKennzahl(int itemcount, VideoListResponse videos, BigInteger subcount) {
-        kennzahlenBasis(videos);
-        berechneKennzahlen(itemcount);
+        this.itemcount=itemcount;
+        this.videos = videos;
+
+        kennzahlenBasis(this.videos);
+        berechneKennzahlen(this.itemcount);
         berechneApplausrate(subcount);
         berechneEngagmentrate(subcount);
-        berechneReichweite(subcount, videos);
-        berechneSpikes(videos);
+        berechneReichweite(subcount,this.videos);
+        berechneSpikes(this.videos);
     }
 
 
@@ -102,6 +111,8 @@ public class YoutubeKennzahl{
         double firstelement = videos.getItems().get(0).getStatistics().getViewCount().doubleValue();
         this.minpostreach = (firstelement/subscriber)*100;
 
+        this.maxpostreach=Math.round(this.maxpostreach*100.0)/100.0;
+        this.minpostreach= Math.round(this.minpostreach*100.0)/100.0;
 
     }
 
@@ -122,17 +133,20 @@ public class YoutubeKennzahl{
                 totalcomments = totalcomments.add(videos.getItems().get(counter).getStatistics().getCommentCount());
             }catch (NullPointerException n){
                 totallikes = totallikes.add(BigInteger.valueOf(0));
+                itemcount = itemcount-1;
             }
             try {
                 totallikes = totallikes.add(videos.getItems().get(counter).getStatistics().getLikeCount());
             }catch (NullPointerException n){
                 totallikes = totallikes.add(BigInteger.valueOf(0));
+                itemcount = itemcount-1;
             }
 
             try {
                 totaldislikes =totaldislikes.add(videos.getItems().get(counter).getStatistics().getDislikeCount());
             } catch (NullPointerException n){
                 totaldislikes = totaldislikes.add(BigInteger.valueOf(0));
+                itemcount = itemcount-1;
             }
 
             counter++;
@@ -146,11 +160,14 @@ public class YoutubeKennzahl{
 
         this.engagmentrate = (entgagment.doubleValue()/subcount.doubleValue())*100;
 
+        this.engagmentrate = Math.round(this.engagmentrate*100.0)/100.0;
+
     }
 
     private void berechneApplausrate(BigInteger subcount){
         this.applausrate= (totallikes.doubleValue() / subcount.doubleValue())*100 ;
 
+        this.applausrate= Math.round(this.applausrate*100.0)/100.0;
     }
 
     private void berechneSpikes( VideoListResponse videos){
