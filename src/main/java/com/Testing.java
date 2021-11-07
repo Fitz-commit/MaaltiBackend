@@ -12,14 +12,14 @@ import java.security.GeneralSecurityException;
 public class Testing {
 
     public static void main(String[] args) throws GeneralSecurityException, IOException, MessagingException {
-        //Mapping m1 = new Mapping();
+        Mapping m1 = new Mapping();
 
         //m1.searchYoutuberByName("Kurzgesagt");
 
 
 
         //TODO WAS WENN YOUTUBER KEINE LIKES HAT ?
-        //PostgresUserManager.getPostgresUserManager().addYoutuber("234234324","gg","abc");
+        //PostgresUserManager.getPostgresUserManager().addFavor("11",30);
         //YTAPICall.searchVideos("UCYJ61XIK64sp6ZFFS8sctxw", "date");
         //System.out.println(m1.searchYoutuberByName("Pietsmiet"));
         //System.out.println(m1.getYoutuberById("UCYJ61XIK64sp6ZFFS8sctxw"));

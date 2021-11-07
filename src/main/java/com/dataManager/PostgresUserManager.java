@@ -4,10 +4,7 @@ import com.User.User;
 import com.YouTube.Youtuber;
 import org.apache.commons.dbcp.BasicDataSource;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -311,10 +308,42 @@ public class PostgresUserManager {
 
     }
 
+    public boolean checkFavor(String creator_id, int user_id) {
+        Statement stmt = null;
+        Connection connection = null;
+        String id = null;
+
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT creator_id, user_id FROM favorites WHERE creator_id=" + "'"+creator_id+"'"+ "AND user_id=" + user_id);;
+
+            while(rs.next()){
+                id = rs.getString("user_id");
+            }
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        if(id == null){
+            return false;
+        };
+
+        return true;
+
+    }
+
 
     public boolean addFavor(String creator_id, int user_id) {
         Statement stmt = null;
         Connection connection = null;
+
+        if (this.checkFavor(creator_id,user_id)){
+          return true;
+        }
 
         try {
             connection = basicDataSource.getConnection();
